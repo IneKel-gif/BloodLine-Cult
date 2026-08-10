@@ -1,0 +1,99 @@
+body{
+    margin: 0;
+    padding: 40px;
+    background-color: #080808;
+    color: #E8E8E8;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.titulo{
+    font-family: 'Cinzel', serif;
+    margin-bottom: 30px;
+}
+
+.checkout{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.bloco{
+    flex: 1;
+    min-width: 300px;
+    background-color: #111111;
+    border: 1px solid #242424;
+    border-radius: 12px;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.bloco:hover{
+    box-shadow: 0 0 15px rgba(92, 10, 20, 0.3);
+}
+
+.bloco h2{
+    font-family: 'Cinzel', serif;
+    margin-bottom: 15px;
+}
+
+.bloco p{
+    margin: 6px 0;
+    color: #bbb;
+}
+
+.total{
+    font-size: 20px;
+    margin: 15px 0;
+    font-family: 'Cinzel', serif;
+}
+
+select{
+    width: 100%;
+    padding: 10px;
+    background-color: #1A1A1A;
+    color: #E8E8E8;
+    border: 1px solid #242424;
+    border-radius: 8px;
+
+    margin-top: 10px;
+}
+
+.botoes{
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn_confirmar{
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #5C0A14;
+    color: #E8E8E8;
+    font-family: 'Cinzel', serif;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn_confirmar:hover{
+    background-color: #7A0F1E;
+}
+
+.btn_cancelar{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background-color: #111111;
+    border: 1px solid #242424;
+    color: #E8E8E8;
+    border-radius: 8px;
+    font-family: 'Cinzel', serif;
+    transition: 0.3s;
+}
+
+.btn_cancelar:hover{
+    background-color: #242424;
+}
