@@ -1,8 +1,8 @@
 <?php
-               $server = "";
-               $user = "";
+               $server = "localhost";
+               $user = "root";
                $password = "";
-               $db = "";
+               $db = "bloodlineCult";
                $local = "";
  
 ?>
