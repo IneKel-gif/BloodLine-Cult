@@ -1,5 +1,8 @@
 <?php
 
+include "../app/cons.php";
+require_once "../app/DLL.php";
+
 session_start();
 
 if(!isset($_SESSION['usuario']))
@@ -8,23 +11,25 @@ if(!isset($_SESSION['usuario']))
     exit;
 }
 
-$arq = fopen("../logins/".$_SESSION['usuario'].".dat", "r");
+$usuario = $_SESSION['usuario'];
 
-$cpflogin = trim(fgets($arq));
+$consulta = "SELECT * FROM logins WHERE usuario = '$usuario'";
+$resultado = banco($server, $user, $password, $db, $consulta);
+$linha = $resultado -> fetch_assoc();
 
-fclose($arq);
+$cpf = $linha['cpf'];
 
-$arq = fopen("../usuarios/".$cpflogin.".dat", "r");
+$consulta = "SELECT * FROM usuarios WHERE cpf = '$cpf'";
+$resultado = banco($server, $user, $password, $db, $consulta);
+$linha = $resultado -> fetch_assoc();
 
-$nome = trim(fgets($arq));
-$cpf = trim(fgets($arq));
-$cep = trim(fgets($arq));
-$estado = trim(fgets($arq));
-$cidade = trim(fgets($arq));
-$bairro = trim(fgets($arq));
-$endereco = trim(fgets($arq));
-
-fclose($arq);
+$nome = $linha['nome'];
+$cpf = $linha['cpf'];
+$cep = $linha['cep'];
+$estado = $linha['estado'];
+$cidade = $linha['cidade'];
+$bairro = $linha['bairro'];
+$endereco = $linha['endereco'];
 
 $total = 0;
 
