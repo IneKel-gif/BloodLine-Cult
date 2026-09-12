@@ -12,37 +12,29 @@ if(!isset($_POST['usuario']) || !isset($_POST['senha']))
 session_start();
 
 extract($_POST);
+$senha = md5($senha);
 
 $consulta = "SELECT * FROM logins WHERE usuario = '$usuario'";
 $resultado = banco($server, $user, $password, $db, $consulta);
 $linha = $resultado -> fetch_assoc();
 
-$caminho = "../logins/".$usuario.".dat";
+if ($linha) {
+    $cpf = $linha['cpf'];
+    $usuario_salvo = $linha['usuario'];
+    $senha_salva = $linha['senha'];
 
-if(file_exists($caminho)){
-    $arq = fopen($caminho, "r");
-
-    $cpf = trim(fgets($arq));
-    $usuariosalvo = trim(fgets($arq));
-    $senhasalva = trim(fgets($arq));
-
-    fclose($arq);
-
-    if($usuario == $usuariosalvo && md5($senha) == $senhasalva){
+    if ($usuario == $usuario_salvo && $senha == $senha_salva){
         $_SESSION['usuario'] = $usuario;
 
         header("location:../inicio.php");
         exit;
-
     }
-
     else{
         header("location: errosenha.php");
         exit;
     }
 }
-
-else{
+else {
     header("location: errousuario.php");
     exit;
 }
