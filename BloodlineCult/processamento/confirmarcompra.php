@@ -24,7 +24,6 @@ $resultado = banco($server, $user, $password, $db, $consulta);
 $linha = $resultado -> fetch_assoc();
 
 $nome = $linha['nome'];
-$cpf = $linha['cpf'];
 $cep = $linha['cep'];
 $estado = $linha['estado'];
 $cidade = $linha['cidade'];
