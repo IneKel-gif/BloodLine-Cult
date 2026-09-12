@@ -1,7 +1,10 @@
 <?php
 
+include "../app/cons.php";
+require_once "../app/DLL.php";
+
 if (empty($_POST)) {
-    header("location:../cadastro1.php");
+    header("location:../cadastro.php");
     exit;
 }
 
@@ -11,17 +14,9 @@ extract($_POST);
 
 $_SESSION['cpf'] = $cpf;
 
-$arq = fopen("../usuarios/" . $cpf . ".dat", "w");
+$sql = "INSERT INTO usuarios (nome, cpf, cep, estado, cidade, bairro, endereco) VALUES ('$nome', '$cpf', '$cep', '$estado', '$cidade', '$bairro', '$endereco')";
 
-fwrite($arq, $nome . "\n");
-fwrite($arq, $cpf . "\n");
-fwrite($arq, $cep . "\n");
-fwrite($arq, $estado . "\n");
-fwrite($arq, $cidade . "\n");
-fwrite($arq, $bairro . "\n");
-fwrite($arq, $endereco . "\n");
-
-fclose($arq);
+banco($server, $user, $password, $db, $sql);
 
 header("location:../cadastro2.php");
 

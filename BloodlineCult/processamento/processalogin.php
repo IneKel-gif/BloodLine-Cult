@@ -1,5 +1,8 @@
 <?php
 
+include "../app/cons.php";
+require_once "../app/DLL.php";
+
 if(!isset($_POST['usuario']) || !isset($_POST['senha']))
 {
     header("location:../login.php");
@@ -9,6 +12,10 @@ if(!isset($_POST['usuario']) || !isset($_POST['senha']))
 session_start();
 
 extract($_POST);
+
+$consulta = "SELECT * FROM logins WHERE usuario = '$usuario'";
+$resultado = banco($server, $user, $password, $db, $consulta);
+$linha = $resultado -> fetch_assoc();
 
 $caminho = "../logins/".$usuario.".dat";
 

@@ -1,5 +1,8 @@
 <?php
 
+include "../app/cons.php";
+require_once "../app/DLL.php";
+
 if(!isset($_POST['usuario']) || !isset($_POST['senha'])){
     header("location:../cadastro2.php");
     exit;
@@ -18,13 +21,9 @@ extract($_POST);
 $senha = md5($senha);
 $cpf = $_SESSION['cpf'];
 
-$arq = fopen("../logins/".$usuario.".dat", "w");
+$sql = "INSERT INTO logins (cpf, usuario, senha) VALUES ('$cpf','$usuario','$senha')";
 
-fwrite($arq, $cpf."\n");
-fwrite($arq, $usuario."\n");
-fwrite($arq, $senha);
-
-fclose($arq);
+banco($server, $user, $password, $db, $sql);
 
 unset($_SESSION['cpf']);
 
