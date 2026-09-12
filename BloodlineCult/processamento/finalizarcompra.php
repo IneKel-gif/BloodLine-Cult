@@ -1,5 +1,8 @@
 <?php
 
+include "../app/cons.php";
+require_once "../app/DLL.php";
+
 if(!isset($_POST['pagamento']))
 {
     header("location:../carrinho.php");
@@ -17,38 +20,28 @@ if(!isset($_SESSION['usuario'])){
 
 extract($_POST);
 
-$pagamento = $pagamento;
+$usuario = $_SESSION['usuario'];
+$data = date("Y-m-d");
+$hora = date("H:i:s");
 $numerovenda = rand(1000,9999);
 $total = 0;
-
-$arq = fopen("../vendas/".$_SESSION['usuario'].".dat", "a");
-
 
 foreach($_SESSION['carrinho'] as $item)
 {
     $total += $item['preco'] * $item['quantidade'];
 }
 
-fwrite(
-    $arq,
-    "Número da venda: ".$numerovenda."\n".
-    "Usuário: ".$_SESSION['usuario']."\n".
-    "Data: ".date("d/m/Y")."\n".
-    "Hora: ".date("H:i:s")."\n".
-    "Valor Total: ".$total."\n".
-    "Pagamento: ".$pagamento."\n\n"
-);
+$sql = "INSERT INTO vendas (numero_venda, usuario, data, hora, valor_total, pagamento) VALUES ('$numerovenda', '$usuario', '$data', '$hora', '$total', '$pagamento')";
+banco($server, $user, $password, $db, $sql);
 
 foreach($_SESSION['carrinho'] as $item){
-    fwrite(
-        $arq,
-        "Produto: ".$item['nome']."\n".
-        "Preço: ".$item['preco']."\n".
-        "Quantidade: ".$item['quantidade']."\n\n"
-    );
-}
+    $produto = $item['nome'];
+    $preco = $item['preco'];
+    $quantidade = $item['quantidade'];
 
-fclose($arq);
+    $sql = "INSERT INTO itens_venda (numero_venda, produto, preco, quantidade) VALUES ('$numerovenda', '$produto', '$preco', '$quantidade')";
+    banco($server, $user, $password, $db, $sql);
+}
 
 unset($_SESSION['carrinho']);
 
