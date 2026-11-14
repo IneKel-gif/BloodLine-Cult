@@ -29,6 +29,7 @@
         <h4> ou </h4>
 
         <a class="botao2" href="cadastro.php">Cadastre-se</a>
+        <a href="esqueciasenha.php">Esqueceu sua senha?</a>
 
     </form>
 
