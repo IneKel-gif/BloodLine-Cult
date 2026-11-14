@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Recuperar Senha</title>
+    <link rel="stylesheet" href="css/recuperacao.css">
 </head>
 <body>
 

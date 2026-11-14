@@ -13,6 +13,7 @@ $token = $_GET['token'];
 <head>
     <meta charset="UTF-8">
     <title>Nova Senha</title>
+    <link rel="stylesheet" href="css/recuperacao.css">
 </head>
 <body>
 
