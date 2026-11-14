@@ -25,9 +25,17 @@ if ($linha) {
 
     if ($usuario == $usuario_salvo && $senha == $senha_salva){
         $_SESSION['usuario'] = $usuario;
+        $_SESSION['cpf'] = $cpf;
+        $_SESSION['tipo'] = $linha['tipo'];
 
-        header("location:../inicio.php");
-        exit;
+        if ($linha['tipo'] == 'admin'){
+            header("location:../admin.php");
+            exit;
+        }
+        else{
+            header("location:../inicio.php");
+            exit;
+        }
     }
     else{
         header("location: errosenha.php");

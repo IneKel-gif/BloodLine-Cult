@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+include "app/cons.php";
+require_once "app/DLL.php";
+
+$sql = "SELECT * FROM produtos";
+$produtos = banco($server, $user, $password, $db, $sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -43,115 +50,34 @@ session_start();
 
 <main class="vitrine">
 
-    <div class="card">
+<?php
+while ($produto = $produtos->fetch_assoc()) {
+?>
 
-        <div class="card_img">
-            <img src="img/camisa1.jpeg" alt="Camisa">
-        </div>
+<div class="card">
 
-        <div class="card_info">
-            <h2>Camisa Darkline Core </h2>
-            <p>R$ 40,00 </p>
-
-            <form action="processamento/adicionarcarrinho.php" method="POST">
-                <input type="hidden" name="nome" value="Darkline Core">
-                <input type="hidden" name="preco" value="40">
-
-                <button>Adicionar ao carrinho</button>
-            </form>
-        </div>
+    <div class="card_img">
+        <img src="<?php echo $produto['imagem']; ?>" alt="<?php echo $produto['nome']; ?>">
     </div>
 
-    <div class="card">
-        <div class="card_img">
-            <img src="img/camisa2.jpeg" alt="Camisa2">
-        </div>
+    <div class="card_info">
+        <h2><?php echo $produto['nome']; ?></h2>
 
-        <div class="card_info">
-            <h2> Bloodline Spike Top </h2>
-            <p>R$ 60,00 </p>
+        <p>R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?></p>
 
-            <form action="processamento/adicionarcarrinho.php" method="POST">
-                <input type="hidden" name="nome" value="Bloodline Spike">
-                <input type="hidden" name="preco" value="60">
+        <form action="processamento/adicionarcarrinho.php" method="POST">
+            <input type="hidden" name="nome" value="<?php echo $produto['nome']; ?>">
+            <input type="hidden" name="preco" value="<?php echo $produto['preco']; ?>">
 
-                <button>Adicionar ao carrinho</button>
-            </form>
-        </div>
+            <button>Adicionar ao carrinho</button>
+        </form>
     </div>
 
-    <div class="card">
-        <div class="card_img">
-            <img src="img/camisa3.jpeg" alt="Moletom">
-        </div>
+</div>
 
-        <div class="card_info">
-            <h2> Moletom Devil Blood </h2>
-            <p>R$ 120,00 </p>
-
-            <form action="processamento/adicionarcarrinho.php" method="POST">
-                <input type="hidden" name="nome" value="Devil Blood">
-                <input type="hidden" name="preco" value="120">
-
-                <button>Adicionar ao carrinho</button>
-            </form>
-        </div>
-    </div>
-
-     <div class="card">
-        <div class="card_img">
-            <img src="img/Calca.jpeg" alt="Calca">
-        </div>
-
-        <div class="card_info">
-            <h2> Calça Ashwalker </h2>
-            <p>R$ 125,00 </p>
-
-            <form action="processamento/adicionarcarrinho.php" method="POST">
-                <input type="hidden" name="nome" value="Ashwalker">
-                <input type="hidden" name="preco" value="125">
-
-                <button>Adicionar ao carrinho</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card_img">
-            <img src="img/Saia.jpeg" alt="Saia">
-        </div>
-
-        <div class="card_info">
-            <h2> Mini-saia Black Oath </h2>
-            <p>R$ 90,00 </p>
-
-            <form action="processamento/adicionarcarrinho.php" method="POST">
-                <input type="hidden" name="nome" value="Black Oath">
-                <input type="hidden" name="preco" value="90">
-
-                <button>Adicionar ao carrinho</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card_img">
-            <img src="img/Short.jpeg" alt="Short">
-        </div>
-
-        <div class="card_info">
-            <h2> Venom Utility Shorts </h2>
-            <p>R$ 50,00 </p>
-
-            <form action="processamento/adicionarcarrinho.php" method="POST">
-                <input type="hidden" name="nome" value="Venom Utility">
-                <input type="hidden" name="preco" value="50">
-
-                <button>Adicionar ao carrinho</button>
-            </form>
-        </div>
-    </div>
-
+<?php
+}
+?>
 </main>
 
 </body>
