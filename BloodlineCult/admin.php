@@ -42,6 +42,27 @@
 
     <h2> Envio de Emails </h2>
 
+    <form action="processamento/enviaremail.php" method="POST">
+
+    <label> Destinatário </label>
+    <input type="email" name="destinatario" required>
+
+    <br><br>
+
+    <label> Assunto </label>
+    <input type="text" name="assunto" required>
+
+    <br><br>
+
+    <label> Mensagem </label>
+    <textarea name="mensagem" required></textarea>
+
+    <br><br>
+
+    <button type="submit">Enviar E-mail</button>
+
+</form>
+
     <a href="inicio.php"> Voltar para a loja </a>
     
 </body>

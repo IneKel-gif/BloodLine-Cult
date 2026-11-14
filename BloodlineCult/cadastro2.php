@@ -34,6 +34,7 @@ if(!isset($_SESSION['cpf']))
         <h1> CADASTRO </h1>
 
         <input type="text" placeholder="Digite seu usuário" name="usuario" required>
+        <input type="email" placeholder="Digite seu e-mail" name="email" required>
         <input type="password" placeholder="Digite sua senha" name="senha" required>
 
         <button class="botao"> Finalizar </button>
