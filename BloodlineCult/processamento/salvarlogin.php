@@ -10,7 +10,7 @@ if(!isset($_POST['usuario']) || !isset($_POST['senha']) || !isset($_POST['email'
 
 session_start();
 
-if(!isset($_SESSION['cpf']))
+if(!isset($_SESSION['id_usuario']))
 {
     header("location:../cadastro1.php");
     exit;
@@ -19,13 +19,13 @@ if(!isset($_SESSION['cpf']))
 extract($_POST);
 
 $senha = md5($senha);
-$cpf = $_SESSION['cpf'];
+$id_usuario = $_SESSION['id_usuario'];
 
-$sql = "INSERT INTO logins (cpf, usuario, email, senha) VALUES ('$cpf','$usuario','$email','$senha')";
+$sql = "INSERT INTO logins (id_usuario, usuario, email, senha) VALUES ('$id_usuario','$usuario','$email','$senha')";
 
 banco($server, $user, $password, $db, $sql);
 
-unset($_SESSION['cpf']);
+unset($_SESSION['id_usuario']);
 
 header("location:../login.php");
 

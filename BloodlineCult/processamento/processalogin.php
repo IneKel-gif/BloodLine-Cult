@@ -19,13 +19,13 @@ $resultado = banco($server, $user, $password, $db, $consulta);
 $linha = $resultado -> fetch_assoc();
 
 if ($linha) {
-    $cpf = $linha['cpf'];
+    $id_usuario = $linha['id_usuario'];
     $usuario_salvo = $linha['usuario'];
     $senha_salva = $linha['senha'];
 
     if ($usuario == $usuario_salvo && $senha == $senha_salva){
         $_SESSION['usuario'] = $usuario;
-        $_SESSION['cpf'] = $cpf;
+        $_SESSION['id_usuario'] = $id_usuario;
         $_SESSION['tipo'] = $linha['tipo'];
 
         if ($linha['tipo'] == 'admin'){
