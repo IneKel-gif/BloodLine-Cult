@@ -11,17 +11,13 @@ if(!isset($_SESSION['usuario']))
     exit;
 }
 
-$usuario = $_SESSION['usuario'];
+$id_usuario = $_SESSION['id_usuario'];
 
-$consulta = "SELECT * FROM logins WHERE usuario = '$usuario'";
+$consulta = "SELECT * FROM usuarios WHERE id_usuario = '$id_usuario'";
 $resultado = banco($server, $user, $password, $db, $consulta);
 $linha = $resultado -> fetch_assoc();
 
 $cpf = $linha['cpf'];
-
-$consulta = "SELECT * FROM usuarios WHERE cpf = '$cpf'";
-$resultado = banco($server, $user, $password, $db, $consulta);
-$linha = $resultado -> fetch_assoc();
 
 $nome = $linha['nome'];
 $cep = $linha['cep'];

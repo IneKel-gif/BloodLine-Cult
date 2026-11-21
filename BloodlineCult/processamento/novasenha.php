@@ -19,9 +19,9 @@ if (!$linha) {
     exit('Link inválido ou expirado.');
 }
 
-$cpf = $linha['cpf'];
+$id_login = $linha['id_login'];
 
-$consulta = "UPDATE logins SET senha = '$senha', token_recuperacao = NULL, expiracao_token = NULL WHERE cpf = '$cpf'";
+$consulta = "UPDATE logins SET senha = '$senha', token_recuperacao = NULL, expiracao_token = NULL WHERE id_login = '$id_login'";
 
 banco($server, $user, $password, $db, $consulta);
 

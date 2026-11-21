@@ -2,7 +2,7 @@
 
 session_start();
 
-if(!isset($_SESSION['cpf']))
+if(!isset($_SESSION['id_usuario']))
 {
     header("location:cadastro1.php");
     exit;

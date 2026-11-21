@@ -10,7 +10,7 @@ if (!isset($_SESSION['tipo']) || $_SESSION['tipo'] != 'admin'){
 }
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-    exit('Envie os dados pelo formulário.');
+    exit('Envie os dados pelo Aformulário.');
 }
 
 if (!isset($_FILES['imagem']) || !is_array($_FILES['imagem'])){

@@ -29,9 +29,9 @@ $token = bin2hex(random_bytes(32));
 
 $expiracao = date('Y-m-d H:i:s', strtotime('+30 minutes'));
 
-$cpf = $linha['cpf'];
+$id_login = $linha['id_login'];
 
-$consulta = "UPDATE logins SET token_recuperacao = '$token', expiracao_token = '$expiracao' WHERE cpf = '$cpf'";
+$consulta = "UPDATE logins SET token_recuperacao = '$token', expiracao_token = '$expiracao' WHERE id_login = '$id_login'";
 
 banco($server, $user, $password, $db, $consulta);
 
