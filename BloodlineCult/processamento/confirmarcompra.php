@@ -5,20 +5,18 @@ require_once "../app/DLL.php";
 
 session_start();
 
-if(!isset($_SESSION['usuario']))
-{
+if(!isset($_SESSION['id_usuario'])){
     header("location:../login.php");
     exit;
 }
 
-$id_usuario = $_SESSION['id_usuario'];
+$id_usuario = (int) $_SESSION['id_usuario'];
 
 $consulta = "SELECT * FROM usuarios WHERE id_usuario = '$id_usuario'";
 $resultado = banco($server, $user, $password, $db, $consulta);
-$linha = $resultado -> fetch_assoc();
+$linha = $resultado->fetch_assoc();
 
 $cpf = $linha['cpf'];
-
 $nome = $linha['nome'];
 $cep = $linha['cep'];
 $estado = $linha['estado'];
@@ -26,16 +24,33 @@ $cidade = $linha['cidade'];
 $bairro = $linha['bairro'];
 $endereco = $linha['endereco'];
 
-$total = 0;
+$consulta = "SELECT id_carrinho FROM carrinhos WHERE id_usuario = '$id_usuario'";
+$resultado = banco($server, $user, $password, $db, $consulta);
 
-if(!isset($_SESSION['carrinho']) || empty($_SESSION['carrinho']))
-{
+if($resultado->num_rows == 0){
     header("location:../carrinho.php");
     exit;
 }
 
-foreach($_SESSION['carrinho'] as $item)
-{
+$linha = $resultado->fetch_assoc();
+$id_carrinho = $linha['id_carrinho'];
+
+$consulta = "SELECT produtos.preco, itens_carrinho.quantidade FROM itens_carrinho
+             INNER JOIN produtos
+             ON itens_carrinho.id_produto = produtos.id_produto
+             WHERE itens_carrinho.id_carrinho = '$id_carrinho'";
+
+$resultado = banco($server, $user, $password, $db, $consulta);
+
+if($resultado->num_rows == 0){
+    header("location:../carrinho.php");
+    exit;
+}
+
+
+$total = 0;
+
+while($item = $resultado->fetch_assoc()){
     $total += $item['preco'] * $item['quantidade'];
 }
 

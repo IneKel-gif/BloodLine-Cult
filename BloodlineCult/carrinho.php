@@ -2,12 +2,36 @@
 
 session_start();
 
-if(!isset($_SESSION['carrinho'])){
-    $_SESSION['carrinho'] = [];
+include "app/cons.php";
+require_once "app/DLL.php";
+
+if(!isset($_SESSION['id_usuario'])){
+    header("location:login.php");
+    exit;
+}
+
+$id_usuario = (int) $_SESSION['id_usuario'];
+
+$sql = "SELECT id_carrinho FROM carrinhos WHERE id_usuario = '$id_usuario'";
+$resultado = banco($server, $user, $password, $db, $sql);
+
+$id_carrinho = null;
+
+if($resultado->num_rows > 0){
+    $linha = $resultado->fetch_assoc();
+    $id_carrinho = $linha['id_carrinho'];
 }
 
 $total = 0;
 
+if($id_carrinho != null){
+    $sql = "SELECT itens_carrinho.id_produto, produtos.nome, produtos.preco, itens_carrinho.quantidade FROM itens_carrinho
+    INNER JOIN produtos
+    ON itens_carrinho.id_produto = produtos.id_produto
+    WHERE itens_carrinho.id_carrinho = '$id_carrinho'";
+
+    $itens = banco($server, $user, $password, $db, $sql);
+}
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +52,7 @@ $total = 0;
 
 <div class="carrinho">
 
-<?php foreach ($_SESSION['carrinho'] as $item){
+<?php if(isset($itens)){ while($item = $itens->fetch_assoc()){
 
     $subtotal = $item['preco'] * $item['quantidade'];
     $total += $subtotal;
@@ -48,12 +72,12 @@ $total = 0;
     <div class="acoes">
 
         <form method="POST" action="processamento/adicionarcarrinho.php">
-            <input type="hidden" name="nome" value="<?php echo $item['nome']; ?>">
+            <input type="hidden" name="id_produto" value="<?php echo $item['id_produto']; ?>">
             <button type="submit">+</button>
         </form>
 
         <form method="POST" action="processamento/removercarrinho.php">
-            <input type="hidden" name="nome" value="<?php echo $item['nome']; ?>">
+            <input type="hidden" name="id_produto" value="<?php echo $item['id_produto']; ?>">
             <button type="submit">-</button>
         </form>
 
@@ -61,7 +85,7 @@ $total = 0;
 
 </div>
 
-<?php } ?>
+<?php }} ?>
 
 </div>
 

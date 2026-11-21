@@ -66,8 +66,7 @@ while ($produto = $produtos->fetch_assoc()) {
         <p>R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?></p>
 
         <form action="processamento/adicionarcarrinho.php" method="POST">
-            <input type="hidden" name="nome" value="<?php echo $produto['nome']; ?>">
-            <input type="hidden" name="preco" value="<?php echo $produto['preco']; ?>">
+            <input type="hidden" name="id_produto" value="<?php echo $produto['id_produto']; ?>">
 
             <button>Adicionar ao carrinho</button>
         </form>
